@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Экзаменатор</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="screen active" id="screen0">
+        <div class="header">
+            <h1 style="color: white;">Настройка профиля</h1>
+        </div>
+
+        <div class="profile-setup">
+            <div class="input-group">
+                <label>Выберите аватар:</label>
+                <div class="avatar-upload">
+                    <div class="avatar-preview" id="avatarPreview"></div>
+                    <label for="avatarInput" class="upload-btn">Выбрать фото</label>
+                    <input type="file" id="avatarInput" accept="image/*">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Ваше имя:</label>
+                <input type="text" id="userName" placeholder="Введите ваше имя">
+            </div>
+
+            <div class="input-group">
+                <label>Ваш статус:</label>
+                <input type="text" id="userStatus" placeholder="Введите ваш статус">
+            </div>
+
+            <button class="btn" onclick="saveProfile()">Сохранить профиль</button>
+        </div>
+    </div>
+
+    <div class="screen" id="screen1">
+        <div class="header">
+            <div class="avatar" id="mainAvatar" onclick="showScreen('screen0')"></div>
+            <div class="user-info">
+                <h1 id="displayName">Пользователь</h1>
+                <div class="status" id="displayStatus">Статус</div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value" id="hoursCount">0ч</div>
+                <div class="stat-label">часов</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="chaptersCount">0</div>
+                <div class="stat-label">решенных глав</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="ticketsCount">0</div>
+                <div class="stat-label">решенных билетов</div>
+            </div>
+        </div>
+
+        <h2>Билеты по главам:</h2>
+
+        <div class="progress-list">
+            <div class="progress-item">
+                <div>
+                    <div class="progress-title">Тема 1</div>
+                    <div class="progress-subtitle">Глава I-6</div>
+                </div>
+                <span class="progress-percent">0%</span>
+            </div>
+            <div class="progress-item">
+                <div>
+                    <div class="progress-title">Тема 2</div>
+                    <div class="progress-subtitle">Приложение 2-3</div>
+                </div>
+                <span class="progress-percent">0%</span>
+            </div>
+            <div class="progress-item">
+                <div>
+                    <div class="progress-title">Тема 3</div>
+                    <div class="progress-subtitle">Глава I, 15. Приложение 1</div>
+                </div>
+                <span class="progress-percent">0%</span>
+            </div>
+            <div class="progress-item">
+                <div>
+                    <div class="progress-title">Тема 4</div>
+                    <div class="progress-subtitle">Глава I-9-12, 19</div>
+                </div>
+                <span class="progress-percent">0%</span>
+            </div>
+            <div class="progress-item">
+                <div>
+                    <div class="progress-title">Тема 5</div>
+                    <div class="progress-subtitle">Глава I-Ic-18, 20-25</div>
+                </div>
+                <span class="progress-percent">0%</span>
+            </div>
+            <div class="progress-item">
+                <div>
+                    <div class="progress-title">Тема 6</div>
+                    <div class="progress-subtitle">Глава 28. Приложение 4-5</div>
+                </div>
+                <span class="progress-percent">0%</span>
+            </div>
+            <div class="progress-item" onclick="showScreen('screen3')">
+                <div>
+                    <div class="progress-title">Тема 7(Доступно)</div>
+                    <div class="progress-subtitle">Ответственность. Безопасность. Медицина</div>
+                </div>
+                <span class="progress-percent">0%</span>
+            </div>
+            <div class="progress-item" onclick="showScreen('screen7')">
+                <div>
+                    <div class="progress-title">Дорожные знаки(Доступно)</div>
+                    <div class="progress-subtitle">Все дорожные знаки</div>
+                </div>
+                <span class="progress-percent">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="screen3">
+        <div class="header">
+            <h1 style="color: white;">Тема 7</h1>
+        </div>
+
+        <div class="progress-list">
+            <div class="progress-item inactive">
+                <span class="progress-title">Ответственность</span>
+                <span class="progress-percent">0%</span>
+            </div>
+            <div class="progress-item inactive">
+                <span class="progress-title">Безопасность</span>
+                <span class="progress-percent">0%</span>
+            </div>
+            <div class="progress-item" onclick="showScreen('screen4')">
+                <span class="progress-title">Медицина(Доступно)</span>
+                <span class="progress-percent">0%</span>
+            </div>
+        </div>
+
+        <button class="btn btn-back" onclick="showScreen('screen1')">Назад</button>
+    </div>
+
+    <div class="screen" id="screen4">
+        <div class="header">
+            <h1 style="color: white;">Медицина</h1>
+        </div>
+
+        <div class="ticket-grid">
+            <div class="ticket-item" onclick="startTicket('medicine', 1)">
+                <div class="ticket-number">Билет 1</div>
+                <div class="ticket-percent" id="medicineTicket1Percent">0%</div>
+            </div>
+            <div class="ticket-item inactive">
+                <div class="ticket-number">Билет 2</div>
+                <div class="ticket-percent">0%</div>
+            </div>
+            <div class="ticket-item inactive">
+                <div class="ticket-number">Билет 3</div>
+                <div class="ticket-percent">0%</div>
+            </div>
+            <div class="ticket-item inactive">
+                <div class="ticket-number">Билет 4</div>
+                <div class="ticket-percent">0%</div>
+            </div>
+            <div class="ticket-item inactive">
+                <div class="ticket-number">Билет 5</div>
+                <div class="ticket-percent">0%</div>
+            </div>
+            <div class="ticket-item inactive">
+                <div class="ticket-number">Билет 6</div>
+                <div class="ticket-percent">0%</div>
+            </div>
+        </div>
+
+        <button class="btn btn-back" onclick="showScreen('screen3')">Назад</button>
+    </div>
+
+    <div class="screen" id="screen7">
+        <div class="header">
+            <h1 style="color: white;">Дорожные знаки</h1>
+        </div>
+
+        <div class="progress-list">
+            <div class="progress-item" onclick="showScreen('screen8')">
+                <span class="progress-title">Основные дорожные знаки(Доступно)</span>
+                <span class="progress-percent">0%</span>
+            </div>
+            <div class="progress-item inactive">
+                <span class="progress-title">Запрещающие знаки</span>
+                <span class="progress-percent">0%</span>
+            </div>
+            <div class="progress-item inactive">
+                <span class="progress-title">Информационные знаки</span>
+                <span class="progress-percent">0%</span>
+            </div>
+        </div>
+
+        <button class="btn btn-back" onclick="showScreen('screen1')">Назад</button>
+    </div>
+
+    <div class="screen" id="screen8">
+        <div class="header">
+            <h1 style="color: white;">Основные дорожные знаки</h1>
+        </div>
+
+        <div class="ticket-grid">
+            <div class="ticket-item" onclick="startTicket('signs', 1)">
+                <div class="ticket-number">Билет 1</div>
+                <div class="ticket-percent" id="signsTicket1Percent">0%</div>
+            </div>
+            <div class="ticket-item inactive">
+                <div class="ticket-number">Билет 2</div>
+                <div class="ticket-percent">0%</div>
+            </div>
+            <div class="ticket-item inactive">
+                <div class="ticket-number">Билет 3</div>
+                <div class="ticket-percent">0%</div>
+            </div>
+        </div>
+
+        <button class="btn btn-back" onclick="showScreen('screen7')">Назад</button>
+    </div>
+
+    <div class="screen" id="screen5">
+        <div class="question-header">
+            <div class="question-info">
+                <div class="question-number" id="ticketName">Билет №1</div>
+                <div>Вопрос <span id="currentQuestion">1</span> из 10</div>
+            </div>
+            <div class="timer" id="timer">10:00</div>
+            <button class="finish-test" onclick="finishTest()">Завершить тест</button>
+        </div>
+
+        <div class="question-content">
+            <div class="question-text" id="questionText"></div>
+            <img class="question-image" id="questionImage" style="display:none;">
+            
+            <div class="options" id="optionsContainer"></div>
+            
+            <div class="result-feedback" id="resultFeedback"></div>
+            <div class="auto-progress" id="autoProgress" style="display:none;">
+                Автоматический переход через <span id="countdown">1</span> секунд...
+            </div>
+            
+            <div class="next-btn-container">
+                <button class="btn" onclick="nextQuestion()" id="nextButton">Далее</button>
+            </div>
+
+            <!-- Индикатор свайпа -->
+            <div class="swipe-indicator">
+                <span class="swipe-arrow">←</span>
+                <span class="swipe-arrow">→</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="screen" id="screen6">
+        <div class="header">
+            <h1 style="color: white;">Результат</h1>
+        </div>
+
+        <div class="results-summary">
+            <h2 style="margin-bottom: 15px;">Тест завершен!</h2>
+            <div class="results-stats">
+                <div class="result-item">
+                    <div class="result-value" id="correctCount">0</div>
+                    <div class="result-label">Правильных</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-value" id="incorrectCount">0</div>
+                    <div class="result-label">Неправильных</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-value" id="totalTime">00:00</div>
+                    <div class="result-label">Время</div>
+                </div>
+            </div>
+        </div>
+
+        <table class="results-table" id="resultsTable">
+            <thead>
+                <tr>
+                    <th>№ вопроса</th>
+                    <th>Ваш ответ</th>
+                    <th>Правильный ответ</th>
+                    <th>Результат</th>
+                </tr>
+            </thead>
+            <tbody id="resultsBody">
+            </tbody>
+        </table>
+
+        <div class="nav-buttons">
+            <button class="btn btn-back" id="backToTicketsBtn">К билетам</button>
+            <button class="btn" onclick="showScreen('screen1')">На главную</button>
+        </div>
+    </div>
+
+    <script src="functions.js"></script>
+</body>
+</html>
